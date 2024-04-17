@@ -498,6 +498,10 @@ const forfeitAllMortalPossessions = () => {
     clearTimeout(trainTimeoutLock);
     trainTimeoutLock = null;
     trainLocked = false;
+
+    if ('spriteEndImageStill' in prefs) {
+        $('.end').attr('src', prefs.spriteEndImageStill.src);
+    }
 }
 
 const capitalizeFirstLetter = (str) => {
