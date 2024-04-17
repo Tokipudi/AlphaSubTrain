@@ -134,6 +134,10 @@ window.addEventListener('onWidgetLoad', obj => {
             	'src': fields.spriteEndImage,
             	'type': 'img'
           	}
+            prefs.spriteEndImageStill = {
+                'src': fields.spriteEndImageStill,
+                'type': 'img'
+            }
         } else if (fields.spriteEndVideo && fields.spriteEndVideo.length !== 0) {
           	prefs.spriteEnd = {
             	'src': fields.spriteEndVideo,
@@ -190,8 +194,13 @@ window.addEventListener('onWidgetLoad', obj => {
         
         const char = wondertradePokemon(prefs.spriteStart);
 
-        const end = document.createElement(prefs.spriteEnd.type);
-        end.src = prefs.spriteEnd.src;
+        let spriteEndToDisplay = prefs.spriteEnd;
+        if ('spriteEndImageStill' in prefs) {
+            spriteEndToDisplay = prefs.spriteEndImageStill;
+        }
+        
+        const end = document.createElement(spriteEndToDisplay.type);
+        end.src = spriteEndToDisplay.src;
         end.classList = ['sprite end'];
         end.style[prefs.trainOrientation] = (prefs.trainDirection === 'left') ? '0' : 'calc(100% - calc({{spriteStartSize}}px + {{spriteEndSize}}px))';
 
@@ -393,6 +402,11 @@ const allAboardTheTrainChooChoo = (amount, eventType) => {
             trainLocked = true;
             if (prefs[`sprite${trainVariant}`].type === 'video') $('.char')[0].pause();
             if (prefs.spriteEnd.type === 'video') $('.end')[0].play();
+
+            if (prefs.spriteEnd.type === 'img') {
+                $('.end').attr('src', prefs.spriteEnd.src);
+            }
+
             $('.char').css('animation', 'bounceOut 0.5s forwards');
             setTimeout(() => {
                 $('.end').css('animation', 'bounceOut 0.5s forwards');

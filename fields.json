@@ -641,6 +641,10 @@
       "type": "image-input",
       "label": "End sprite (image)"
     },
+    "spriteEndImageStill": {
+      "type": "image-input",
+      "label": "End sprite still image (required if a gif was selected above)"
+    },
     "spriteEndVideo": {
       "type": "video-input",
       "label": "End sprite (video)"
